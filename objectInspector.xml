@@ -1,0 +1,173 @@
+<!DOCTYPE Component SYSTEM "../Oak/Filer/Component.dtd">
+  <main>
+    <prop name="name" value="objectInspector"/>
+    <prop name="title" value="Object Inspector"/>
+    <prop name="linkrel" value="link rel='stylesheet' type='text/css' href='/objectInspector.css'"/>
+    <prop name="ev_onCreate" value="$::TL::objectInspector->on_create"/>
+    <owned name="body">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Body"/>
+      <prop name="parent" value="objectInspector"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="form">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Form"/>
+      <prop name="method" value="post"/>
+      <prop name="parent" value="body"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="table">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Table"/>
+      <prop name="width" value="100%"/>
+      <prop name="parent" value="form"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="header">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Thead"/>
+      <prop name="parent" value="table"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="trTop">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tr"/>
+      <prop name="parent" value="header"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="tdTrTop">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Td"/>
+      <prop name="colspan" value="2"/>
+      <prop name="parent" value="trTop"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="selectComponent">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Select"/>
+      <prop name="parent" value="tdTrTop"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="onchange" value="this.form.submit()"/>
+      <prop name="ev_onChange" value="$::TL::objectInspector->on_selectComponent_change"/>
+    </owned>
+    <owned name="trTitle">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tr"/>
+      <prop name="parent" value="header"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="th1TrTitle">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trTitle"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="textTh1TrTitle">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="name"/>
+      <prop name="parent" value="th1TrTitle"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="th2TrTitle">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trTitle"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="1"/>
+    </owned>
+    <owned name="textTh2TrTitle">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="value"/>
+      <prop name="parent" value="th2TrTitle"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="content">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tbody"/>
+      <prop name="parent" value="table"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="footer">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tfoot"/>
+      <prop name="parent" value="table"/>
+      <prop name="top" value="2"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="trAdd">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tr"/>
+      <prop name="parent" value="footer"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="th1TrAdd">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trAdd"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="textTh1TrAdd">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="Add property:"/>
+      <prop name="parent" value="th1TrAdd"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="th2TrAdd">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trAdd"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="1"/>
+    </owned>
+    <owned name="input_add_property">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="type" value="text"/>
+      <prop name="parent" value="th2TrAdd"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="submit_add">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="type" value="submit"/>
+      <prop name="value" value="Add"/>
+      <prop name="parent" value="th2TrAdd"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="1"/>
+      <prop name="ev_onClick" value="$::TL::objectInspector->on_add_property_click"/>
+    </owned>
+    <owned name="trSubmit">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tr"/>
+      <prop name="parent" value="footer"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="th1TrSubmit">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="colspan" value="2"/>
+      <prop name="parent" value="trSubmit"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="submit_update">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="type" value="submit"/>
+      <prop name="value" value="Update"/>
+      <prop name="parent" value="th1TrSubmit"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="ev_onClick" value="$::TL::objectInspector->on_update_click"/>
+    </owned>
+    <owned name="submit_delete">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="type" value="submit"/>
+      <prop name="value" value="Delete"/>
+      <prop name="parent" value="th1TrSubmit"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="1"/>
+      <prop name="ev_onClick" value="$::TL::objectInspector->on_delete_click"/>
+    </owned>
+  </main>

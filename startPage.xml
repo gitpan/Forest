@@ -1,0 +1,225 @@
+<!DOCTYPE Component SYSTEM "../Oak/Filer/Component.dtd">
+  <main>
+    <prop name="name" value="startPage"/>
+    <prop name="title" value="Welcome to Forest"/>
+    <prop name="linkrel" value="link rel='stylesheet' type='text/css' href='/style.css'"/>
+    <prop name="ev_onCreate" value="$::TL::startPage->on_create"/>
+    <owned name="body">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Body"/>
+      <prop name="parent" value="startPage"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="style" value="align: center"/>
+    </owned>
+    <owned name="main_header">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::H1"/>
+      <prop name="parent" value="body"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="caption" value="Welcome to Forest"/>
+    </owned>
+    <owned name="form">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Form"/>
+      <prop name="parent" value="body"/>
+      <prop name="method" value="post"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>    
+    <owned name="p1">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::P"/>
+      <prop name="parent" value="form"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>    
+    <owned name="text1">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="parent" value="p1"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="Hi, we have two options for you... You can start a new XML from scratch, or you can upload an XML for edition."/>
+    </owned>
+    <owned name="table">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Table"/>
+      <prop name="parent" value="form"/>
+      <prop name="top" value="2"/>
+      <prop name="left" value="0"/>
+      <prop name="width" value="70%"/>
+    </owned>    
+    <owned name="tr1">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tr"/>
+      <prop name="parent" value="table"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="th1">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="tr1"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="style" value="width: 50%"/>
+    </owned>
+    <owned name="text2">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="parent" value="th1"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="Starting a new XML"/>
+    </owned>
+    <owned name="th2">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="tr1"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="1"/>
+      <prop name="style" value="width: 50%"/>
+    </owned>    
+    <owned name="text3">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="parent" value="th2"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="Editing a existing XML"/>
+    </owned>
+    <owned name="tr2">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tr"/>
+      <prop name="parent" value="table"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>    
+    <owned name="td1">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Td"/>
+      <prop name="parent" value="tr2"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="style" value="width: 50%"/>
+    </owned>
+    <owned name="p2">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::P"/>
+      <prop name="parent" value="td1"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>    
+    <owned name="text4">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="parent" value="p2"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="To start a new XML, you must choose wich component will be the parent component for your application."/>
+    </owned>
+    <owned name="br1">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Br"/>
+      <prop name="parent" value="p2"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="1"/>
+    </owned>    
+    <owned name="select_new_parent">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Select"/>
+      <prop name="parent" value="p2"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="br2">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Br"/>
+      <prop name="parent" value="p2"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="1"/>
+    </owned>
+    <owned name="label_name_new">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Label"/>
+      <prop name="parent" value="p2"/>
+      <prop name="top" value="2"/>
+      <prop name="left" value="0"/>
+      <prop name="caption" value="Name:"/>
+    </owned>
+    <owned name="name_new">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="parent" value="p2"/>
+      <prop name="top" value="2"/>
+      <prop name="left" value="1"/>
+      <prop name="type" value="text"/>
+      <prop name="value" value=""/>
+    </owned>
+    <owned name="submit_new">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="parent" value="p2"/>
+      <prop name="top" value="3"/>
+      <prop name="left" value="0"/>
+      <prop name="type" value="submit"/>
+      <prop name="value" value="Create New"/>
+      <prop name="ev_onClick" value="$::TL::startPage->submit_new_on_click"/>
+    </owned>
+    <owned name="td2">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Td"/>
+      <prop name="parent" value="tr2"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+      <prop name="style" value="width: 50%"/>
+    </owned>
+    <owned name="p3">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::P"/>
+      <prop name="parent" value="td2"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>    
+    <owned name="text5">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="parent" value="p3"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="To edit a existing XML, paste the content here."/>
+    </owned>
+    <owned name="br3">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Br"/>
+      <prop name="parent" value="p3"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="1"/>
+    </owned>    
+    <owned name="label_edit_parent">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Label"/>
+      <prop name="parent" value="p3"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="2"/>
+      <prop name="caption" value="Class:"/>
+    </owned>
+    <owned name="edit_parent">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="parent" value="p3"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="3"/>
+      <prop name="type" value="text"/>
+      <prop name="value" value=""/>
+    </owned>
+    <owned name="br4">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Br"/>
+      <prop name="parent" value="p3"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="4"/>
+    </owned>    
+    <owned name="textarea_file">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Textarea"/>
+      <prop name="rows" value="10"/>
+      <prop name="cols" value="30"/>
+      <prop name="parent" value="p3"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="br5">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Br"/>
+      <prop name="parent" value="p3"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="1"/>
+    </owned>
+    <owned name="submit_edit">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="parent" value="p3"/>
+      <prop name="top" value="2"/>
+      <prop name="left" value="0"/>
+      <prop name="type" value="submit"/>
+      <prop name="value" value="Edit Existing"/>
+      <prop name="ev_onClick" value="$::TL::startPage->submit_edit_on_click"/>
+    </owned>
+  </main>

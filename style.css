@@ -1,0 +1,23 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;text-align: left;
+}
+
+H1 {
+	color: #6699cc;
+	font-weight: bold;
+	font-size: large;
+}
+
+TH {
+	background-color: #d0e0f0;
+	color: #003868;
+	font-size: 11pt;
+	padding: 10px;
+}
+
+TD {
+	background-color: #dfefff;
+	color: #003868;
+	font-size: 11pt;
+	padding: 10px;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE Component SYSTEM "../Oak/Filer/Component.dtd">
+  <main>
+    <prop name="name" value="endPage"/>
+    <prop name="title" value="Welcome to Forest"/>
+    <prop name="linkrel" value="link rel='stylesheet' type='text/css' href='/style.css'"/>
+    <prop name="ev_onShow" value="$::TL::endPage->on_show"/>
+    <owned name="body">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Body"/>
+      <prop name="parent" value="endPage"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="style" value="align: center"/>
+    </owned>
+    <owned name="main_header">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::H1"/>
+      <prop name="parent" value="body"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="caption" value="Work Finished!"/>
+    </owned>
+    <owned name="form">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Form"/>
+      <prop name="parent" value="body"/>
+      <prop name="method" value="post"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>    
+    <owned name="p1">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::P"/>
+      <prop name="parent" value="form"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>    
+    <owned name="text1">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="parent" value="p1"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="This is the result of your work... Congratulations..."/>
+    </owned>
+    <owned name="textarea_file">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Textarea"/>
+      <prop name="rows" value="50"/>
+      <prop name="cols" value="80"/>
+      <prop name="parent" value="form"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="0"/>
+    </owned>
+  </main>

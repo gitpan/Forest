@@ -1,0 +1,159 @@
+<!DOCTYPE Component SYSTEM "../Oak/Filer/Component.dtd">
+  <main>
+    <prop name="name" value="addComponent"/>
+    <prop name="title" value="Adding components to your page"/>
+    <prop name="linkrel" value="link rel='stylesheet' type='text/css' href='/objectInspector.css'"/>
+    <prop name="ev_onCreate" value="$::TL::addComponent->on_create"/>
+    <owned name="body">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Body"/>
+      <prop name="parent" value="addComponent"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+      <prop name="style" value="align: center"/>
+    </owned>
+    <owned name="form">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Form"/>
+      <prop name="method" value="post"/>
+      <prop name="parent" value="body"/>
+      <prop name="top" value="0"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="table">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Table"/>
+      <prop name="parent" value="form"/>
+      <prop name="width" value="100%"/>
+      <prop name="top" value="0"/>
+    </owned>
+    <owned name="trTitle">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tr"/>
+      <prop name="parent" value="table"/>
+    </owned>
+    <owned name="th1">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trTitle"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="textTh1">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="name"/>
+      <prop name="parent" value="th1"/>
+    </owned>
+    <owned name="th2">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trTitle"/>
+      <prop name="left" value="1"/>
+    </owned>
+    <owned name="textTh2">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="class"/>
+      <prop name="parent" value="th2"/>
+    </owned>
+    <owned name="th3">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trTitle"/>
+      <prop name="left" value="2"/>
+    </owned>
+    <owned name="textTh3">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="parent"/>
+      <prop name="parent" value="th3"/>
+    </owned>
+    <owned name="th4">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trTitle"/>
+      <prop name="left" value="3"/>
+    </owned>
+    <owned name="textTh4">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="top"/>
+      <prop name="parent" value="th4"/>
+    </owned>
+    <owned name="th5">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trTitle"/>
+      <prop name="left" value="4"/>
+    </owned>
+    <owned name="textTh5">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="left"/>
+      <prop name="parent" value="th5"/>
+    </owned>
+    <owned name="trFields">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Tr"/>
+      <prop name="parent" value="table"/>
+      <prop name="top" value="1"/>
+    </owned>
+    <owned name="td1">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trFields"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="name">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="parent" value="td1"/>
+    </owned>
+    <owned name="td2">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trFields"/>
+      <prop name="left" value="1"/>
+    </owned>
+    <owned name="class">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Select"/>
+      <prop name="parent" value="td2"/>
+      <prop name="left" value="0"/>
+    </owned>
+    <owned name="td3">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trFields"/>
+      <prop name="left" value="2"/>
+    </owned>
+    <owned name="parent">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Select"/>
+      <prop name="parent" value="td3"/>
+    </owned>
+    <owned name="td4">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trFields"/>
+      <prop name="left" value="3"/>
+    </owned>
+    <owned name="top">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="parent" value="td4"/>
+    </owned>
+    <owned name="td5">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Th"/>
+      <prop name="parent" value="trFields"/>
+      <prop name="left" value="4"/>
+    </owned>
+    <owned name="left">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="parent" value="td5"/>
+    </owned>
+    <owned name="submit_add">
+      <prop name="__CLASSNAME__" value="Oak::Web::HTML::Input"/>
+      <prop name="type" value="submit"/>
+      <prop name="value" value="Add"/>
+      <prop name="parent" value="form"/>
+      <prop name="top" value="1"/>
+      <prop name="ev_onClick" value="$::TL::addComponent->on_add_click"/>
+    </owned>
+    <owned name="finishLink">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::ActionLink"/>
+      <prop name="parent" value="form"/>
+      <prop name="top" value="1"/>
+      <prop name="left" value="1"/>
+      <prop name="target" value="_top"/>
+      <prop name="ev_onClick" value="$::TL::addComponent->on_finish_click"/>
+    </owned>
+    <owned name="finishText">
+      <prop name="__CLASSNAME__" value="Oak::Web::Additional::Template"/>
+      <prop name="type" value="string"/>
+      <prop name="source" value="Finish!"/>
+      <prop name="parent" value="finishLink"/>
+    </owned>
+  </main>

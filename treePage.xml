@@ -1,0 +1,49 @@
+<main>
+  <prop name="linkrel" value="link rel='stylesheet' type='text/css' href='/objectInspector.css'"></prop>
+  <prop name="name" value="treePage"></prop>
+  <prop name="ev_onCreate" value="$::TL::treePage->on_create"></prop>
+  <owned name="ScriptResize">
+    <prop name="parent" value="treePage" />
+    <prop name="left" value="0"/>
+    <prop name="top" value="0"/>
+    <prop name="src" value="/resize.js"/>
+    <prop name="__CLASSNAME__" value="Oak::Web::HTML::Script"/>
+  </owned>
+  <owned name="spanResizeLink">
+    <prop name="style" value="font-size: 11px; text-decoration:none; cursor: e-resize;"/>
+    <prop name="left" value="0"/>
+    <prop name="styleClass" value="actionSpan"/>
+    <prop name="content" value="&lt;&gt;"/>
+    <prop name="top" value="0"/>
+    <prop name="parent" value="body"/>
+    <prop name="onclick" value="resizeFrames('subFrameset'); return false;"/>
+    <prop name="__CLASSNAME__" value="Oak::Web::HTML::Span"/>
+  </owned>
+  <owned name="title">
+    <prop name="parent" value="body"></prop>
+    <prop name="level" value="1"></prop>
+    <prop name="content" value="Component Tree"></prop>
+    <prop name="1" value=""></prop>
+    <prop name="top" value="1"></prop>
+    <prop name="left" value="0"></prop>
+    <prop name="name" value="title"></prop>
+    <prop name="__CLASSNAME__" value="Oak::Web::HTML::H1"></prop>
+  </owned>
+  <owned name="body">
+    <prop name="parent" value="treePage"></prop>
+    <prop name="1" value=""></prop>
+    <prop name="left" value="0"></prop>
+    <prop name="top" value="1"></prop>
+    <prop name="name" value="body"></prop>
+    <prop name="__CLASSNAME__" value="Oak::Web::HTML::Body"></prop>
+  </owned>
+  <owned name="componentList">
+    <prop name="parent" value="body"></prop>
+    <prop name="left" value=""></prop>
+    <prop name="top" value="2"></prop>
+    <prop name="__CLASSNAME__" value="Oak::Web::Additional::ActionLinkList"></prop>
+    <prop name="name" value="componentList"></prop>
+    <prop name="ev_onClick" value="$::TL::treePage->on_list_click" />
+    <prop name="target" value="objInspFrame" />
+  </owned>
+</main>
