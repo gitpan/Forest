@@ -1,0 +1,56 @@
+---
+name: Forest
+version: 0.99_01
+author: ~
+abstract: the distribution for L<Tree> and friends
+license: perl
+requires:
+  Scalar::Util: 1.10
+  UNIVERSAL::require: 0.10
+  perl: 5.6.0
+build_requires:
+  File::Copy: 0.01
+  File::Spec: 0.01
+  Scalar::Util: 1.10
+  Test::Deep: 0.088
+  Test::Exception: 0.15
+  Test::File: 1.10
+  Test::File::Cleaner: 0.02
+  Test::File::Contents: 0.02
+  Test::More: 0.47
+  Test::Warn: 0.08
+provides:
+  Forest:
+    file: lib/Forest.pm
+    version: 0.99_01
+  Tree:
+    file: lib/Tree.pm
+    version: 0.99_01
+  Tree::Binary:
+    file: lib/Tree/Binary.pm
+    version: 0.99_01
+  Tree::Fast:
+    file: lib/Tree/Fast.pm
+    version: 0.99_01
+  Tree::Null:
+    file: lib/Tree/Fast.pm
+    version: ~
+  Tree::Persist:
+    file: lib/Tree/Persist.pm
+    version: 0.99_01
+  Tree::Persist::Base:
+    file: lib/Tree/Persist/Base.pm
+    version: 0.99_01
+  Tree::Persist::DB:
+    file: lib/Tree/Persist/DB.pm
+    version: 0.99_01
+  Tree::Persist::DB::SelfReferential:
+    file: lib/Tree/Persist/DB/SelfReferential.pm
+    version: 0.99_01
+  Tree::Persist::File:
+    file: lib/Tree/Persist/File.pm
+    version: 0.99_01
+  Tree::Persist::File::XML:
+    file: lib/Tree/Persist/File/XML.pm
+    version: 0.99_01
+generated_by: Module::Build version 0.2701
