@@ -1,56 +1,63 @@
 ---
 name: Forest
-version: 0.99_01
-author: ~
-abstract: the distribution for L<Tree> and friends
+version: 0.01
+author:
+  - 'Stevan Little E<lt>stevan.little@iinteractive.comE<gt>'
+abstract: nothing
 license: perl
+resources:
+  license: http://dev.perl.org/licenses/
 requires:
-  Scalar::Util: 1.10
-  UNIVERSAL::require: 0.10
-  perl: 5.6.0
+  JSON::Any: 1.15
+  List::Util: 1.17
+  Moose: 0.35
+  MooseX::AttributeHelpers: 0.07
+  Scalar::Util: 1.17
+  Sub::Current: 0.02
 build_requires:
-  File::Copy: 0.01
-  File::Spec: 0.01
-  Scalar::Util: 1.10
-  Test::Deep: 0.088
-  Test::Exception: 0.15
-  Test::File: 1.10
-  Test::File::Cleaner: 0.02
-  Test::File::Contents: 0.02
+  Test::Exception: 0.21
   Test::More: 0.47
-  Test::Warn: 0.08
 provides:
   Forest:
     file: lib/Forest.pm
-    version: 0.99_01
-  Tree:
-    file: lib/Tree.pm
-    version: 0.99_01
-  Tree::Binary:
-    file: lib/Tree/Binary.pm
-    version: 0.99_01
-  Tree::Fast:
-    file: lib/Tree/Fast.pm
-    version: 0.99_01
-  Tree::Null:
-    file: lib/Tree/Fast.pm
-    version: ~
-  Tree::Persist:
-    file: lib/Tree/Persist.pm
-    version: 0.99_01
-  Tree::Persist::Base:
-    file: lib/Tree/Persist/Base.pm
-    version: 0.99_01
-  Tree::Persist::DB:
-    file: lib/Tree/Persist/DB.pm
-    version: 0.99_01
-  Tree::Persist::DB::SelfReferential:
-    file: lib/Tree/Persist/DB/SelfReferential.pm
-    version: 0.99_01
-  Tree::Persist::File:
-    file: lib/Tree/Persist/File.pm
-    version: 0.99_01
-  Tree::Persist::File::XML:
-    file: lib/Tree/Persist/File/XML.pm
-    version: 0.99_01
-generated_by: Module::Build version 0.2701
+    version: 0.01
+  Forest::Tree:
+    file: lib/Forest/Tree.pm
+    version: 0.01
+  Forest::Tree::Indexer:
+    file: lib/Forest/Tree/Indexer.pm
+    version: 0.01
+  Forest::Tree::Indexer::SimpleUIDIndexer:
+    file: lib/Forest/Tree/Indexer/SimpleUIDIndexer.pm
+    version: 0.01
+  Forest::Tree::Reader:
+    file: lib/Forest/Tree/Reader.pm
+    version: 0.01
+  Forest::Tree::Reader::SimpleTextFile:
+    file: lib/Forest/Tree/Reader/SimpleTextFile.pm
+    version: 0.01
+  Forest::Tree::Roles::JSONable:
+    file: lib/Forest/Tree/Roles/JSONable.pm
+    version: 0.01
+  Forest::Tree::Roles::MetaData:
+    file: lib/Forest/Tree/Roles/MetaData.pm
+    version: 0.01
+  Forest::Tree::Service:
+    file: lib/Forest/Tree/Service.pm
+    version: 0.01
+  Forest::Tree::Service::AJAX:
+    file: lib/Forest/Tree/Service/AJAX.pm
+    version: 0.01
+  Forest::Tree::Writer:
+    file: lib/Forest/Tree/Writer.pm
+    version: 0.01
+  Forest::Tree::Writer::SimpleASCII:
+    file: lib/Forest/Tree/Writer/SimpleASCII.pm
+    version: 0.01
+  Forest::Tree::Writer::SimpleHTML:
+    file: lib/Forest/Tree/Writer/SimpleHTML.pm
+    version: 0.01
+generated_by: Module::Build version 0.2808
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

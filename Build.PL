@@ -1,33 +1,24 @@
 use Module::Build;
 
-use 5.6.0;
-
 use strict;
-use warnings;
 
 my $build = Module::Build->new(
+    dist_abstract => 'nothing',
     module_name => 'Forest',
     license => 'perl',
     requires => {
-        'perl'               => '5.6.0',
-        'Scalar::Util'       => '1.10',
-        'UNIVERSAL::require' => '0.10',
+        'Moose'                    => '0.35',
+        'MooseX::AttributeHelpers' => '0.07',
+        'JSON::Any'                => '1.15',
+        'Sub::Current'             => '0.02',
+        'Scalar::Util'             => '1.17',
+        'List::Util'               => '1.17',        
     },
     optional => {
-        'DBI' => '1.41',
-        'XML::Parser' => '0.01',
     },
     build_requires => {
-        'Test::More'           => '0.47',
-        'Test::Deep'           => '0.088',
-        'Test::File'           => '1.10',
-        'Test::File::Cleaner'  => '0.02',
-        'Test::File::Contents' => '0.02',
-        'Test::Exception'      => '0.15',
-        'Test::Warn'           => '0.08',
-        'File::Copy'           => '0.01',
-        'File::Spec'           => '0.01',
-        'Scalar::Util'         => '1.10',
+        'Test::More'      => '0.47',
+        'Test::Exception' => '0.21',
     },
     create_makefile_pl => 'traditional',
     recursive_test_files => 1,
@@ -37,3 +28,4 @@ my $build = Module::Build->new(
 );
 
 $build->create_build_script;
+

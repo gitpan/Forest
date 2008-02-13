@@ -1,167 +1,100 @@
 package Forest;
+use Moose ();
 
-our $VERSION = '0.99_01';
+our $VERSION   = '0.01';
+our $AUTHORITY = 'cpan:STEVAN';
 
 1;
+
 __END__
+
+=pod
 
 =head1 NAME
 
-Forest - the distribution for L<Tree> and friends
+Forest - A collection of n-ary tree related modules 
 
 =head1 DESCRIPTION
 
-Forest is the name for a group of related modules that all deal with trees. 
+Forest is intended to be a replacement for the Tree::Simple family of modules, 
+and fixes many of the issues that have always bothered me about them. It is by 
+no means a complete replacement yet, but should eventually grow to become that.
 
-B<NOTE:> This is currently a developer release. The API is nearly-completely
-frozen, but we reserve the right to make incompatible changes. When 1.0 is
-released, its API I<will> be backwards-compatible.
+For more information please refer to the individual module documentation.
 
-=head1 CIRCULAR REFERENCES
+=head1 DISCLAIMER
 
-All the modules in this distribution use L<Scalar::Util>'s C<weaken()> to
-avoid circular references. This avoids the problem of circular references in
-all cases.
+This module has been sitting on my laptop for a long time waiting to be released. 
+I am pretty happy with it's current state, but it has not been used very much yet
+so I am not 100% sure it is as stable as Tree::Simple (which it is meant to replace). 
+So please, use with caution. Also being that this is a the 0.01 release I reserve the 
+right to re-write the entire thing if I want too.
 
-=head1 BUGS
-
-None that we are aware of.
-
-The test suite for Forest is based very heavily on the test suite for
-L<Test::Simple>, which has been tested extensively and is used in a number of
-major applications/distributions, such as L<Catalyst> and rt.cpan.org.
+All that said, we use n-ary trees pretty heavily at C<$work> and this module will 
+be replacing all our Tree::Simple usage so it will eventually improve in stability, 
+performance and functionality.
 
 =head1 TODO
 
 =over 4
 
-=item * Traversals and memory
+=item More documentation
 
-Need tests for what happens with a traversal list and deleted nodes,
-particularly w.r.t. how memory is handled - should traversals weaken?
+This is 0.01 so it is lacking quite a bit of docs. Although I invite people to read the 
+source, it is quite simple really.
 
-=item * Added NestedSets has a way of storing trees in a DB
+=item More tests
 
-=item * Provide a way of loading the payload from a secondary datastore
-
-=item * Lazyload the children of the loaded tree
-
-=item * Provide a way of defaulting the class if it's not a column in the DB
-
-=item * Allow has_child() and get_index_for() to work with a supplied callback
+The coverage is in the low 90s, but there is still a lot of behavioral stuff that could
+use some testing too.
 
 =back
 
-=head1 NOTES
-
-These are items to consider adding in general.
+=head1 SEE ALSO 
 
 =over 4
 
-=item * Partial balancing
+=item L<Tree::Simple>
 
-Creating an AVL search tree
+I wrote this module a few years ago and I had served me well, but recently I find 
+myself getting frustrated with some of the uglier bits of this module. So Forest is 
+a re-write of this module.
 
-=item * BTree
+=item L<Tree>
 
-A special m-ary balanced tree.
+This is an ambitious project to replace all the Tree related modules with a single
+core implementation. There is some good code in here, but the project seems to be 
+very much on the back-burner at this time. 
 
-=over 4
+=item O'Caml port of Forest
 
-=item 1 The root either is a leaf or has 2+ children
-
-=item 2 Every node (except root/leaf) has between ceil(m/2) and m children
-
-=item 3 Every path from root to leaf is the same size
-
-=back
-
-=item * 2-3 Tree
-
-A BTree of order 3.
-
-=over 4
-
-=item 1 All nodes have 2 or 3 children
-
-=item 2 The leaves, traversed from left to right, are ordered.
-
-=item 3 Insertion
-
-Locate where it should be and add it. If the parent's children > 3, split it into two nodes with 2 children and add the 2nd to the parent. Continue up to the root, adding a new root, if needed.
-
-=item 4 Deletion
-
-Locate the leaf and remove it. If the parent's children < 2, merge it with an adjacent sibling, removing it from its parent. Continue up to the root, removing the root, if needed.
+Ask me about the O'Caml port of this module, it is also sitting on my hard drive
+waiting for release. It actually helped quite a bit in terms of helping me settle
+on the APIs for this module. Static typing can be very helpful sometimes. 
 
 =back
 
-=item * Red-Black
+=head1 BUGS
 
-=over 4
+All complex software has bugs lurking in it, and this module is no 
+exception. If you find a bug please either email me, or add the bug
+to cpan-RT.
 
-=item 1 Every node has 2 children colored either red or black
-
-=item 2 Every leaf is black
-
-=item 3 Every red node has 2 black children
-
-=item 4 Every path from the root to a leaf contains the same number of black children (called the I<black-height>)
-
-=back
-
-Special case is an AA tree. This requires that right children must always be red. q.v. L<http://en.wikipedia.org/wiki/AA_tree> for more info.
-
-=item * Andersson
-
-q.v. L<http://www.eternallyconfuzzled.com/tuts/andersson.html>
-
-=item * Splay
-
-q.v. L<http://en.wikipedia.org/wiki/Splay_tree>
-
-=item * Scapegoat
-
-q.v. L<http://en.wikipedia.org/wiki/Scapegoat_tree>
-
-=back
-
-=head1 CODE COVERAGE
-
-We use L<Devel::Cover> to test the code coverage of our tests. Below is the
-L<Devel::Cover> report on this module's test suite. We use TDD, which is why
-our coverage is so high.
- 
-  ---------------------------- ------ ------ ------ ------ ------ ------ ------
-  File                           stmt branch   cond    sub    pod   time  total
-  ---------------------------- ------ ------ ------ ------ ------ ------ ------
-  blib/lib/Tree.pm              100.0  100.0  100.0  100.0  100.0   58.9  100.0
-  blib/lib/Tree/Binary.pm        96.1   95.0  100.0  100.0  100.0    7.1   96.5
-  blib/lib/Tree/Fast.pm          99.4   95.5   91.7  100.0  100.0   27.7   98.5
-  blib/lib/Tree/Persist.pm      100.0   83.3    n/a  100.0  100.0    1.5   97.6
-  .../lib/Tree/Persist/Base.pm  100.0   87.5  100.0  100.0  100.0    1.0   98.1
-  blib/lib/Tree/Persist/DB.pm   100.0    n/a    n/a  100.0    n/a    0.1  100.0
-  ...ist/DB/SelfReferential.pm  100.0   90.0    n/a  100.0    n/a    2.6   99.1
-  .../lib/Tree/Persist/File.pm  100.0   50.0    n/a  100.0    n/a    0.4   96.7
-  .../Tree/Persist/File/XML.pm  100.0  100.0  100.0  100.0    n/a    0.8  100.0
-  Total                          99.3   94.4   97.7  100.0  100.0  100.0   98.6
-  ---------------------------- ------ ------ ------ ------ ------ ------ ------
-
-=head1 AUTHORS
-
-Rob Kinyon E<lt>rob.kinyon@iinteractive.comE<gt>
+=head1 AUTHOR
 
 Stevan Little E<lt>stevan.little@iinteractive.comE<gt>
 
-Thanks to Infinity Interactive for generously donating our time.
+With contributions from:
+
+Guillermo (groditi) Roditi
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004, 2005 by Infinity Interactive, Inc.
+Copyright 2008 Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 
-This library is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself. 
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut

@@ -2,23 +2,20 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-          'PL_FILES' => {},
-          'INSTALLDIRS' => 'site',
           'NAME' => 'Forest',
-          'EXE_FILES' => [],
           'VERSION_FROM' => 'lib/Forest.pm',
           'PREREQ_PM' => {
-                           'Scalar::Util' => '1.10',
-                           'File::Copy' => '0.01',
-                           'Test::Exception' => '0.15',
-                           'Test::File' => '1.10',
-                           'File::Spec' => '0.01',
-                           'Test::More' => '0.47',
-                           'Test::Warn' => '0.08',
-                           'Test::File::Cleaner' => '0.02',
-                           'UNIVERSAL::require' => '0.10',
-                           'Test::File::Contents' => '0.02',
-                           'Test::Deep' => '0.088'
-                         }
+                           'JSON::Any' => '1.15',
+                           'List::Util' => '1.17',
+                           'Moose' => '0.35',
+                           'MooseX::AttributeHelpers' => '0.07',
+                           'Scalar::Util' => '1.17',
+                           'Sub::Current' => '0.02',
+                           'Test::Exception' => '0.21',
+                           'Test::More' => '0.47'
+                         },
+          'INSTALLDIRS' => 'site',
+          'EXE_FILES' => [],
+          'PL_FILES' => {}
         )
 ;
