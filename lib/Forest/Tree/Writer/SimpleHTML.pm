@@ -3,10 +3,11 @@ use Moose;
 
 use Sub::Current;
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
-with 'Forest::Tree::Writer';
+with 'Forest::Tree::Writer',
+     'Forest::Tree::Roles::HasNodeFormatter';
 
 sub as_string {
     my ($self) = @_;
@@ -16,12 +17,12 @@ sub as_string {
         my $t      = shift;
         my $indent = ('    ' x $t->depth);
         
-        $out .= ($indent . '<li>' . ($t->node || '\undef') . '</li>' . "\n")
+        $out .= ($indent . '<li>' . $self->format_node($t) . '</li>' . "\n")
             unless $t->depth == -1;
             
         unless ($t->is_leaf) {
             $out .= ($indent . '<ul>' . "\n");
-            map { ROUTINE->($_) } @{$t->children};
+            map { ROUTINE->($_) } @{ $t->children };
             $out .= ($indent . '</ul>' . "\n");      
         }      
     }->($self->tree);
@@ -29,7 +30,8 @@ sub as_string {
     return $out;
 }
 
-__PACKAGE__->meta->make_immutable();
+__PACKAGE__->meta->make_immutable;
+
 no Moose; 1;
 
 __END__

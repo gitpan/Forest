@@ -1,20 +1,27 @@
-package Forest::Tree::Writer;
+package Forest::Tree::Loader;
 use Moose::Role;
 
-our $VERSION   = '0.02';
+our $VERSION   = '0.01';
 our $AUTHORITY = 'cpan:STEVAN';
 
 has 'tree' => (
-    is          => 'rw',
-    isa         => 'Forest::Tree',
-    is_weak_ref => 1,
+    is      => 'ro',
+    isa     => 'Forest::Tree',
+    lazy    => 1,
+    default => sub { Forest::Tree->new },
 );
 
-requires 'as_string';
+requires 'load';
 
-sub write {
-    my ($self, $fh) = @_;
-    print $fh $self->as_string;
+sub create_new_subtree { 
+    my ($self, %options) = @_;
+    my $node = $options{node};
+    if (blessed($node) && $node->isa('Forest::Tree')) {
+        return $node;
+    }
+    else {
+        return blessed($self->tree)->new(%options);
+    }    
 }
 
 no Moose::Role; 1;
@@ -25,33 +32,17 @@ __END__
 
 =head1 NAME
 
-Forest::Tree::Writer - An abstract role for tree writers
+Forest::Tree::Loader - An abstract role for loading trees 
 
 =head1 DESCRIPTION
 
-This is an abstract role for tree writers.
-
-=head1 ATTRIBUTES
-
-=over 4
-
-=item I<tree>
-
-=back
-
-=head1 REQUIRED METHODS 
-
-=over 4
-
-=item B<as_string>
-
-=back
+This is an abstract role to be used for loading trees from 
 
 =head1 METHODS 
 
 =over 4
 
-=item B<write ($fh)>
+=item B<>
 
 =back
 

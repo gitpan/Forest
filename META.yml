@@ -1,63 +1,26 @@
 ---
-name: Forest
-version: 0.01
+abstract: 'A collection of n-ary tree related modules '
 author:
-  - 'Stevan Little E<lt>stevan.little@iinteractive.comE<gt>'
-abstract: nothing
+  - 'Stevan Little <stevan.little@iinteractive.com>'
+build_requires:
+  Path::Class: 0
+  Test::Exception: 0
+  Test::More: 0
+distribution_type: module
+generated_by: 'Module::Install version 0.75'
 license: perl
-resources:
-  license: http://dev.perl.org/licenses/
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.3.html
+  version: 1.3
+name: Forest
+no_index:
+  directory:
+    - inc
+    - t
 requires:
-  JSON::Any: 1.15
   List::Util: 1.17
   Moose: 0.35
   MooseX::AttributeHelpers: 0.07
   Scalar::Util: 1.17
   Sub::Current: 0.02
-build_requires:
-  Test::Exception: 0.21
-  Test::More: 0.47
-provides:
-  Forest:
-    file: lib/Forest.pm
-    version: 0.01
-  Forest::Tree:
-    file: lib/Forest/Tree.pm
-    version: 0.01
-  Forest::Tree::Indexer:
-    file: lib/Forest/Tree/Indexer.pm
-    version: 0.01
-  Forest::Tree::Indexer::SimpleUIDIndexer:
-    file: lib/Forest/Tree/Indexer/SimpleUIDIndexer.pm
-    version: 0.01
-  Forest::Tree::Reader:
-    file: lib/Forest/Tree/Reader.pm
-    version: 0.01
-  Forest::Tree::Reader::SimpleTextFile:
-    file: lib/Forest/Tree/Reader/SimpleTextFile.pm
-    version: 0.01
-  Forest::Tree::Roles::JSONable:
-    file: lib/Forest/Tree/Roles/JSONable.pm
-    version: 0.01
-  Forest::Tree::Roles::MetaData:
-    file: lib/Forest/Tree/Roles/MetaData.pm
-    version: 0.01
-  Forest::Tree::Service:
-    file: lib/Forest/Tree/Service.pm
-    version: 0.01
-  Forest::Tree::Service::AJAX:
-    file: lib/Forest/Tree/Service/AJAX.pm
-    version: 0.01
-  Forest::Tree::Writer:
-    file: lib/Forest/Tree/Writer.pm
-    version: 0.01
-  Forest::Tree::Writer::SimpleASCII:
-    file: lib/Forest/Tree/Writer/SimpleASCII.pm
-    version: 0.01
-  Forest::Tree::Writer::SimpleHTML:
-    file: lib/Forest/Tree/Writer/SimpleHTML.pm
-    version: 0.01
-generated_by: Module::Build version 0.2808
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+version: 0.02

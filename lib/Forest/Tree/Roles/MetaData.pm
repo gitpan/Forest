@@ -1,32 +1,31 @@
 package Forest::Tree::Roles::MetaData;
 use Moose::Role;
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
-has 'meta_data' => (
-    is      => 'ro',
+has 'metadata' => (
+    is      => 'rw',
     isa     => 'HashRef',
     default => sub { {} },
 );
 
-sub fetch_meta_data_for {
+sub fetch_metadata_for {
     my ($self, $key) = @_;
     
     my $current = $self;
     
     do {    
         if ($current->does(__PACKAGE__)) {
-            my $meta = $current->meta_data;
+            my $meta = $current->metadata;
             return $meta->{$key} 
                 if exists $meta->{$key};            
         }
-        $current = $self->parent;
-        
+        $current = $current->parent;
     } until $current->is_root;
     
     if ($current->does(__PACKAGE__)) {
-        my $meta = $current->meta_data;
+        my $meta = $current->metadata;
         return $meta->{$key} 
             if exists $meta->{$key};            
     }   
@@ -56,7 +55,7 @@ This is really useful, at least for me it is :)
 
 =over 4
 
-=item I<meta_data>
+=item I<metadata>
 
 =back
 
@@ -64,7 +63,7 @@ This is really useful, at least for me it is :)
 
 =over 4
 
-=item B<fetch_meta_data_for ($key)>
+=item B<fetch_metadata_for ($key)>
 
 This will first check locally, if it doesn't fund anything then will climb 
 back to the root looking.

@@ -1,10 +1,11 @@
 package Forest::Tree::Writer::SimpleASCII;
 use Moose;
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
-with 'Forest::Tree::Writer';
+with 'Forest::Tree::Writer',
+     'Forest::Tree::Roles::HasNodeFormatter';
 
 sub as_string {
     my ($self) = @_;
@@ -12,13 +13,14 @@ sub as_string {
     
     $self->tree->traverse(sub {
         my $t = shift;
-        $out .= (('    ' x $t->depth) . ($t->node || '\undef') . "\n");
+        $out .= (('    ' x $t->depth) . $self->format_node($t) . "\n");
     });
     
     return $out;
 }
 
-__PACKAGE__->meta->make_immutable();
+__PACKAGE__->meta->make_immutable;
+
 no Moose; 1;
 
 __END__

@@ -1,15 +1,24 @@
-package Forest::Tree::Service;
+package Forest::Tree::Roles::HasNodeFormatter;
 use Moose::Role;
 
 our $VERSION   = '0.01';
 our $AUTHORITY = 'cpan:STEVAN';
 
-has 'tree_index' => (
-    is   => 'rw',
-    does => 'Forest::Tree::Indexer',
+has 'node_formatter' => (
+    is      => 'rw', 
+    isa     => 'CodeRef',
+    lazy    => 1,
+    default => sub { 
+        sub { (shift)->node  || 'undef' } 
+    }
 );
 
-1;
+sub format_node {
+    my $self = shift;
+    $self->node_formatter->(@_)
+}
+
+no Moose::Role; 1;
 
 __END__
 
@@ -17,17 +26,15 @@ __END__
 
 =head1 NAME
 
-Forest::Tree::Service - An abstract role for tree services
+=head1 SYNOPSIS
 
 =head1 DESCRIPTION
 
-This is an abstract role for tree indexers.
-
-=head1 ATTRIBUTES
+=head1 METHODS 
 
 =over 4
 
-=item I<tree_index>
+=item B<>
 
 =back
 
