@@ -31,11 +31,13 @@ t/000_load.t
 t/010_Tree.t
 t/011_Tree_MetaData.t
 t/012_Tree_errors.t
+t/013_Tree_build_with_constructor.t
 t/020_Tree_Reader.t
 t/021_Tree_Reader_using_load.t
 t/030_Tree_Writer.t
 t/031_Tree_Writer_to_disk.t
 t/032_Tree_Writer_complex_ASCII.t
+t/033_Tree_Writer_incremental_build.t
 t/040_Tree_Indexer.t
 t/041_Tree_Indexer_w_custom_reader.t
 t/060_Tree_Loader.t
