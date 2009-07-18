@@ -1,7 +1,7 @@
 package Forest::Tree::Roles::MetaData;
 use Moose::Role;
 
-our $VERSION   = '0.06';
+our $VERSION   = '0.07';
 our $AUTHORITY = 'cpan:STEVAN';
 
 has 'metadata' => (
@@ -9,6 +9,12 @@ has 'metadata' => (
     isa     => 'HashRef',
     default => sub { {} },
 );
+
+sub get_metadata_for {
+    my ($self, $key) = @_;
+
+    return $self->metadata->{$key};
+}
 
 sub fetch_metadata_for {
     my ($self, $key) = @_;

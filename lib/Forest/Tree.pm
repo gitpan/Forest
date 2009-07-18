@@ -5,7 +5,7 @@ use MooseX::AttributeHelpers;
 use Scalar::Util 'reftype';
 use List::Util   'sum', 'max';
 
-our $VERSION   = '0.06';
+our $VERSION   = '0.07';
 our $AUTHORITY = 'cpan:STEVAN';
 
 has 'node' => (is => 'rw', isa => 'Item');
@@ -23,7 +23,7 @@ has 'parent' => (
     predicate   => 'has_parent',
     clearer     => 'clear_parent',
     isa         => 'Maybe[Forest::Tree]',
-    is_weak_ref => 1,
+    weak_ref => 1,
     handles     => {
         'add_sibling'       => 'add_child',
         'get_sibling_at'    => 'get_child_at',
@@ -153,7 +153,8 @@ sub traverse {
 
 sub siblings {
     my $self = shift;
-    [ grep { $self->uid ne $_->uid } @{ $self->children } ];
+    return [] unless $self->has_parent;
+    [ grep { $self->uid ne $_->uid } @{ $self->parent->children } ];
 }
 
 sub get_index_in_siblings {
