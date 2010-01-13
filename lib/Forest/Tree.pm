@@ -2,22 +2,29 @@ package Forest::Tree;
 use Moose;
 use MooseX::AttributeHelpers;
 
-use Scalar::Util 'reftype';
+use Scalar::Util 'reftype', 'refaddr';
 use List::Util   'sum', 'max';
 
-our $VERSION   = '0.07';
+our $VERSION   = '0.08';
 our $AUTHORITY = 'cpan:STEVAN';
 
-has 'node' => (is => 'rw', isa => 'Item');
+extends qw(Forest::Tree::Pure);
 
-has 'uid'  => (
-    is      => 'rw',
-    isa     => 'Value',
-    lazy    => 1,
-    default => sub { ($_[0] =~ /\((.*?)\)$/)[0] },
+#has '+node' => ( is => 'rw' );
+has 'node' => (
+    traits => [qw(StorableClone)],
+    is  => 'rw',
+    isa => 'Item',
 );
 
+sub set_node {
+    my ( $self, $new ) = @_;
+    $self->node($new);
+    $self;
+}
+
 has 'parent' => (
+    traits    => [qw(NoClone)],
     reader      => 'parent',
     writer      => '_set_parent',
     predicate   => 'has_parent',
@@ -31,7 +38,10 @@ has 'parent' => (
     },
 );
 
+#has '+children' => (
+#    is        => 'rw',
 has 'children' => (
+    traits    => [qw(Clone)],
     metaclass => 'Collection::Array',
     is        => 'rw',
     isa       => 'ArrayRef[Forest::Tree]',
@@ -44,39 +54,11 @@ has 'children' => (
     trigger   => sub {
         my ($self, $children) = @_;
         foreach my $child (@$children) {
-            $child->_set_parent($self);    
+            $child->_set_parent($self);
             $self->clear_height if $self->has_height;
-            $self->clear_size   if $self->has_size;            
+            $self->clear_size   if $self->has_size;
         }
     }
-);
-
-has 'size' => (
-    is        => 'ro',
-    isa       => 'Int',
-    lazy      => 1,
-    required  => 1,
-    clearer   => 'clear_size',
-    predicate => 'has_size',
-    default   => sub {
-        my $self = shift;
-        return 1 unless $self->child_count;        
-        1 + sum map { $_->size } @{ $self->children };
-    }
-);
-
-has 'height' => (
-     is        => 'ro',
-     isa       => 'Int',
-     lazy      => 1,
-     required  => 1,
-     clearer   => 'clear_height',
-     predicate => 'has_height',
-     default   => sub {
-         my $self = shift;
-         return 0 unless $self->child_count;
-         1 + max map { $_->height } @{ $self->children };
-     }
 );
 
 after 'clear_size' => sub {
@@ -92,8 +74,7 @@ after 'clear_height' => sub {
 };
 
 ## informational
-sub is_root { !(shift)->has_parent      }
-sub is_leaf { (shift)->child_count == 0 }
+sub is_root { !(shift)->has_parent }
 
 ## depth
 sub depth { ((shift)->parent || return -1)->depth + 1 }
@@ -101,28 +82,58 @@ sub depth { ((shift)->parent || return -1)->depth + 1 }
 ## child management
 
 sub add_child {
-    my ($self, $child) = @_; 
-    (blessed($child) && $child->isa('Forest::Tree'))
-        || confess "Child parameter must be a Forest::Tree not (" . (defined $child ? $child : 'undef') . ")";
-    $child->_set_parent($self);    
+    my ($self, $child) = @_;
+    (blessed($child) && $child->isa(ref $self))
+        || confess "Child parameter must be a " . ref($self) . " not (" . (defined $child ? $child : 'undef') . ")";
+    $child->_set_parent($self);
     $self->clear_height if $self->has_height;
-    $self->clear_size   if $self->has_size;    
+    $self->clear_size   if $self->has_size;
     push @{ $self->children } => $child;
     $self;
+}
+
+sub replace {
+    my ( $self, $replacement ) = @_;
+
+    confess "Can't replace root" if $self->is_root;
+
+    $self->parent->set_child_at( $self->get_index_in_siblings, $replacement );
+
+    return $replacement;
 }
 
 sub add_children {
     my ($self, @children) = @_;
     $self->add_child($_) for @children;
+    return $self;
+}
+
+sub set_child_at {
+    my ( $self, $index, $child ) = @_;
+
+    (blessed($child) && $child->isa(ref $self))
+        || confess "Child parameter must be a " . ref($self) . " not (" . (defined $child ? $child : 'undef') . ")";
+
+    $self->clear_height if $self->has_height;
+    $self->clear_size   if $self->has_size;
+
+    my $children = $self->children;
+
+    $children->[$index]->clear_parent;
+
+    $children->[$index] = $child;
+    $child->_set_parent($self);
+
+    $self;
 }
 
 sub insert_child_at {
     my ($self, $index, $child) = @_;
-    (blessed($child) && $child->isa('Forest::Tree'))
-        || confess "Child parameter must be a Forest::Tree not (" . (defined $child ? $child : 'undef') . ")";
-    $child->_set_parent($self);    
+    (blessed($child) && $child->isa(ref $self))
+        || confess "Child parameter must be a " . ref($self) . " not (" . (defined $child ? $child : 'undef') . ")";
+    $child->_set_parent($self);
     $self->clear_height if $self->has_height;
-    $self->clear_size   if $self->has_size;    
+    $self->clear_size   if $self->has_size;
     splice @{ $self->children }, $index, 0, $child;
     $self;
 }
@@ -130,23 +141,10 @@ sub insert_child_at {
 sub remove_child_at {
     my ($self, $index) = @_;
     $self->clear_height if $self->has_height;
-    $self->clear_size   if $self->has_size;    
+    $self->clear_size   if $self->has_size;
     my $child = splice @{ $self->children }, $index, 1;
     $child->clear_parent;
     $child;
-}
-
-## traversal
-sub traverse {
-    my ($self, $func) = @_;
-    (defined($func))
-        || confess "Cannot traverse without traversal function";
-    (reftype($func) eq "CODE")
-        || die "Traversal function must be a CODE reference, not : $func";
-    foreach my $child (@{ $self->children }) {
-        $func->($child);
-        $child->traverse($func);
-    }
 }
 
 ##siblings
@@ -160,23 +158,24 @@ sub siblings {
 sub get_index_in_siblings {
     my ($self) = @_;
     return -1 if $self->is_root;
-    my $index = 0;
-    foreach my $sibling (@{ $self->parent->children }) {
-        ("$sibling" eq "$self") && return $index;
-        $index++;
-    }
+
+    $self->parent->get_child_index($self);
 }
 
-## cloning 
+## cloning
 
-sub clone_and_detach {
-    my ($self, %options) = @_;
-    require Storable;
-    my $parent = $self->parent;
-    $self->clear_parent;
-    my $clone = Storable::dclone($self);
-    $self->_set_parent($parent);
-    return $clone;
+sub clone_and_detach { shift->clone(@_) }
+
+sub to_pure_tree {
+    my $self = shift;
+
+    $self->reconstruct_with_class("Forest::Tree::Pure");
+}
+
+sub to_mutable_tree {
+    my $self = shift;
+
+    return $self;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -202,8 +201,8 @@ Forest::Tree - An n-ary tree
               node     => 1.1,
               children => [
                   Forest::Tree->new(node => 1.1.1),
-                  Forest::Tree->new(node => 1.1.2),                
-                  Forest::Tree->new(node => 1.1.3),                
+                  Forest::Tree->new(node => 1.1.2),
+                  Forest::Tree->new(node => 1.1.3),
               ]
           ),
           Forest::Tree->new(node => 1.2),
@@ -211,12 +210,12 @@ Forest::Tree - An n-ary tree
               node     => 1.3,
               children => [
                   Forest::Tree->new(node => 1.3.1),
-                  Forest::Tree->new(node => 1.3.2),                
+                  Forest::Tree->new(node => 1.3.2),
               ]
-          ),                                                
+          ),
       ]
   );
-  
+
   $t->traverse(sub {
       my $t = shift;
       print(('    ' x $t->depth) . ($t->node || '\undef') . "\n");
@@ -224,8 +223,11 @@ Forest::Tree - An n-ary tree
 
 =head1 DESCRIPTION
 
-This module is a basic n-ary tree, it provides most of the functionality 
+This module is a basic n-ary tree, it provides most of the functionality
 of Tree::Simple, whatever is missing will be added eventually.
+
+This class inherits from L<Forest::Tree::Pure>>, but all shared methods and
+attributes are documented in both classes.
 
 =head1 ATTRIBUTES
 
@@ -251,7 +253,7 @@ of Tree::Simple, whatever is missing will be added eventually.
 
 =item I<children>
 
-=over 4 
+=over 4
 
 =item B<get_child_at ($index)>
 
@@ -307,6 +309,8 @@ Return the depth of this tree. Root has a depth of -1
 
 =item B<add_child ($child)>
 
+=item B<add_children (@children)>
+
 Add a new child. The $child must be a C<Forest::Tree>
 
 =item B<insert_child_at ($index, $child)>
@@ -326,11 +330,34 @@ every descendant.
 
 Returns an array reference of all siblings (not including us)
 
+=item B<to_pure_tree>
+
+Invokes C<reconstruct_with_class> with L<Forest::Tree::Pure>.
+
+=item B<to_mutable_tree>
+
+Returns the invocant (without cloning).
+
+=item B<clone>
+
+See L<Forest::Tree::Pure/clone>.
+
+This variant will B<not> clone the parent, but return a clone of the subtree
+that is detached.
+
+=item B<get_index_in_siblings>
+
+Returns the index of the tree in the list of children.
+
+Equivalent to calling C<$tree->parent->get_child_index($tree)>.
+
+Returns -1 if the node has no parent (the root node).
+
 =back
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no 
+All complex software has bugs lurking in it, and this module is no
 exception. If you find a bug please either email me, or add the bug
 to cpan-RT.
 
@@ -340,7 +367,7 @@ Stevan Little E<lt>stevan.little@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008-2009 Infinity Interactive, Inc.
+Copyright 2008-2010 Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

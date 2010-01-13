@@ -1,7 +1,7 @@
 package Forest;
 use Moose ();
 
-our $VERSION   = '0.07';
+our $VERSION   = '0.08';
 our $AUTHORITY = 'cpan:STEVAN';
 
 1;
@@ -16,11 +16,12 @@ Forest - A collection of n-ary tree related modules
 
 =head1 DESCRIPTION
 
-Forest is intended to be a replacement for the Tree::Simple family of modules,
+Forest is intended to be a replacement for the L<Tree::Simple> family of modules,
 and fixes many of the issues that have always bothered me about them. It is by
 no means a complete replacement yet, but should eventually grow to become that.
 
-For more information please refer to the individual module documentation.
+For more information please refer to the individual module documentation,
+starting with L<Forest::Tree>.
 
 =head1 TODO
 
@@ -28,7 +29,7 @@ For more information please refer to the individual module documentation.
 
 =item More documentation
 
-This is 0.05 so it is lacking quite a bit of docs (I am being really lazy sorry).
+This is 0.08 so it is (still) lacking quite a bit of docs (I am being really lazy sorry).
 Although I invite people to read the source, it is quite simple really.
 
 =item More tests
@@ -74,13 +75,15 @@ Stevan Little E<lt>stevan.little@iinteractive.comE<gt>
 
 With contributions from:
 
+Yuval (nothingmuch) Kogman
+
 Guillermo (groditi) Roditi
 
 Florian (rafl) Ragwitz
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008-2009 Infinity Interactive, Inc.
+Copyright 2008-2010 Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

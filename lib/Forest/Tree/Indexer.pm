@@ -2,20 +2,20 @@ package Forest::Tree::Indexer;
 use Moose::Role;
 use MooseX::AttributeHelpers;
 
-our $VERSION   = '0.07';
+our $VERSION   = '0.08';
 our $AUTHORITY = 'cpan:STEVAN';
 
 has 'tree' => (
     is  => 'rw',
-    isa => 'Forest::Tree',
+    isa => 'Forest::Tree::Pure',
 );
 
 has 'index' => (
     metaclass => 'Collection::Hash',
     is        => 'rw',
-    isa       => 'HashRef[Forest::Tree]',
+    isa       => 'HashRef[Forest::Tree::Pure]',
     lazy      => 1,
-    default   => sub { {} },    
+    default   => sub { {} },
     provides  => {
         'get'    => 'get_tree_at',
         'exists' => 'has_tree_at',
@@ -62,7 +62,7 @@ This is an abstract role for tree writers.
 
 =back
 
-=head1 REQUIRED METHODS 
+=head1 REQUIRED METHODS
 
 =over 4
 
@@ -70,7 +70,7 @@ This is an abstract role for tree writers.
 
 =back
 
-=head1 METHODS 
+=head1 METHODS
 
 =over 4
 
@@ -80,7 +80,7 @@ This is an abstract role for tree writers.
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no 
+All complex software has bugs lurking in it, and this module is no
 exception. If you find a bug please either email me, or add the bug
 to cpan-RT.
 
@@ -90,7 +90,7 @@ Stevan Little E<lt>stevan.little@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008-2009 Infinity Interactive, Inc.
+Copyright 2008-2010 Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

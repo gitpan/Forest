@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 17;
+use Test::More tests => 29;
 
 BEGIN {
     use_ok('Forest::Tree');
@@ -16,11 +16,23 @@ BEGIN {
 my $reader = Forest::Tree::Reader::SimpleTextFile->new;
 $reader->read(\*DATA);
 
-{
-    my $w = Forest::Tree::Writer::SimpleASCII->new(tree => $reader->tree);
+sub to_pure {
+    my $tree = shift;
+
+    Forest::Tree::Pure->new(
+        ( $tree->has_node ? ( node => $tree->node ) : () ),
+        children => [ map { to_pure($_) } @{ $tree->children } ],
+    );
+}
+
+my $tree = $reader->tree;
+my $pure = to_pure($tree);
+
+foreach my $tree ( $tree, $pure ) {
+    my $w = Forest::Tree::Writer::SimpleASCII->new(tree => $tree);
     isa_ok($w, 'Forest::Tree::Writer::SimpleASCII');
 
-    isa_ok($w->tree, 'Forest::Tree');
+    isa_ok($w->tree, 'Forest::Tree::Pure');
 
     is($w->as_string, 
 q{1.0
@@ -37,14 +49,14 @@ q{1.0
 
 }
 
-{
+foreach my $tree ( $tree, $pure ) {
     my $w = Forest::Tree::Writer::SimpleASCII->new(
-        tree           => $reader->tree,
+        tree           => $tree,
         node_formatter => sub { '[' . (shift)->node . ']' }
     );
     isa_ok($w, 'Forest::Tree::Writer::SimpleASCII');
 
-    isa_ok($w->tree, 'Forest::Tree');
+    isa_ok($w->tree, 'Forest::Tree::Pure');
 
     is($w->as_string, 
 q{[1.0]
@@ -61,69 +73,69 @@ q{[1.0]
 
 }
 
-{    
-    my $w = Forest::Tree::Writer::SimpleHTML->new(tree => $reader->tree);
+foreach my $tree ( $tree, $pure ) {
+    my $w = Forest::Tree::Writer::SimpleHTML->new(tree => $tree);
     isa_ok($w, 'Forest::Tree::Writer::SimpleHTML');
 
-    isa_ok($w->tree, 'Forest::Tree');
+    isa_ok($w->tree, 'Forest::Tree::Pure');
 
     is($w->as_string, 
     q{<ul>
-<li>1.0</li>
-<ul>
-    <li>1.1</li>
-    <li>1.2</li>
+    <li>1.0</li>
     <ul>
-        <li>1.2.1</li>
+        <li>1.1</li>
+        <li>1.2</li>
+        <ul>
+            <li>1.2.1</li>
+        </ul>
     </ul>
-</ul>
-<li>2.0</li>
-<ul>
-    <li>2.1</li>
-</ul>
-<li>3.0</li>
-<li>4.0</li>
-<ul>
-    <li>4.1</li>
+    <li>2.0</li>
     <ul>
-        <li>4.1.1</li>
+        <li>2.1</li>
     </ul>
-</ul>
+    <li>3.0</li>
+    <li>4.0</li>
+    <ul>
+        <li>4.1</li>
+        <ul>
+            <li>4.1.1</li>
+        </ul>
+    </ul>
 </ul>
 }, '.... got the right output');
 }
 
-{    
+foreach my $tree ( $tree, $pure ) {
     my $w = Forest::Tree::Writer::SimpleHTML->new(
-        tree           => $reader->tree,
+        tree           => $tree,
         node_formatter => sub { '<b>' . (shift)->node . '</b>' }
     );
     isa_ok($w, 'Forest::Tree::Writer::SimpleHTML');
 
-    isa_ok($w->tree, 'Forest::Tree');
+    isa_ok($w->tree, 'Forest::Tree::Pure');
 
     is($w->as_string, 
     q{<ul>
-<li><b>1.0</b></li>
-<ul>
-    <li><b>1.1</b></li>
-    <li><b>1.2</b></li>
+    <li><b>1.0</b></li>
     <ul>
-        <li><b>1.2.1</b></li>
+        <li><b>1.1</b></li>
+        <li><b>1.2</b></li>
+        <ul>
+            <li><b>1.2.1</b></li>
+        </ul>
     </ul>
-</ul>
-<li><b>2.0</b></li>
-<ul>
-    <li><b>2.1</b></li>
-</ul>
-<li><b>3.0</b></li>
-<li><b>4.0</b></li>
-<ul>
-    <li><b>4.1</b></li>
+    <li><b>2.0</b></li>
     <ul>
-        <li><b>4.1.1</b></li>
+        <li><b>2.1</b></li>
     </ul>
-</ul>
+    <li><b>3.0</b></li>
+    <li><b>4.0</b></li>
+    <ul>
+        <li><b>4.1</b></li>
+        <ul>
+            <li><b>4.1.1</b></li>
+        </ul>
+    </ul>
 </ul>
 }, '.... got the right output');
 }

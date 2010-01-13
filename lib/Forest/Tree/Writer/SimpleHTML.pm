@@ -1,7 +1,7 @@
 package Forest::Tree::Writer::SimpleHTML;
 use Moose;
 
-our $VERSION   = '0.07';
+our $VERSION   = '0.08';
 our $AUTHORITY = 'cpan:STEVAN';
 
 with 'Forest::Tree::Writer',
@@ -9,26 +9,17 @@ with 'Forest::Tree::Writer',
 
 sub as_string {
     my ($self) = @_;
-    my $out;    
-    
-    my $routine = sub {
-        my $loop   = shift;
-        my $t      = shift;
-        my $indent = ('    ' x $t->depth);
-        
-        $out .= ($indent . '<li>' . $self->format_node($t) . '</li>' . "\n")
-            unless $t->depth == -1;
-            
-        unless ($t->is_leaf) {
-            $out .= ($indent . '<ul>' . "\n");
-            map { $loop->($loop, $_) } @{ $t->children };
-            $out .= ($indent . '</ul>' . "\n");      
-        }      
-    };
-    
-    $routine->($routine, $self->tree);
-    
-    return $out;
+
+    return join( "", map { "$_\n" }
+        $self->tree->fmap_cont(sub {
+            my ( $t, $cont, %args ) = @_;
+
+            return (
+                ( $t->has_node    ? ( '<li>' . $self->format_node($t) . '</li>'       ) : () ),
+                ( $t->child_count ? ( '<ul>', ( map { "    $_" } $cont->() ), '</ul>' ) : () ),
+            );
+        }),
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -47,7 +38,7 @@ Forest::Tree::Writer::SimpleHTML - A simple HTML writer for Forest::Tree heirarc
 
 This is a simple writer which draws a tree as an HTML unordered list.
 
-=head1 METHODS 
+=head1 METHODS
 
 =over 4
 
@@ -57,7 +48,7 @@ This is a simple writer which draws a tree as an HTML unordered list.
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no 
+All complex software has bugs lurking in it, and this module is no
 exception. If you find a bug please either email me, or add the bug
 to cpan-RT.
 
@@ -67,7 +58,7 @@ Stevan Little E<lt>stevan.little@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008-2009 Infinity Interactive, Inc.
+Copyright 2008-2010 Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

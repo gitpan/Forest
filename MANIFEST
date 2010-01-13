@@ -9,10 +9,15 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Forest.pm
 lib/Forest/Tree.pm
+lib/Forest/Tree/Builder.pm
+lib/Forest/Tree/Builder/Callback.pm
+lib/Forest/Tree/Builder/SimpleTextFile.pm
+lib/Forest/Tree/Constructor.pm
 lib/Forest/Tree/Indexer.pm
 lib/Forest/Tree/Indexer/SimpleUIDIndexer.pm
 lib/Forest/Tree/Loader.pm
 lib/Forest/Tree/Loader/SimpleUIDLoader.pm
+lib/Forest/Tree/Pure.pm
 lib/Forest/Tree/Reader.pm
 lib/Forest/Tree/Reader/SimpleTextFile.pm
 lib/Forest/Tree/Roles/HasNodeFormatter.pm
@@ -32,6 +37,7 @@ t/010_Tree.t
 t/011_Tree_MetaData.t
 t/012_Tree_errors.t
 t/013_Tree_build_with_constructor.t
+t/014_Pure.t
 t/020_Tree_Reader.t
 t/021_Tree_Reader_using_load.t
 t/030_Tree_Writer.t
