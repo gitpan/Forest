@@ -22,10 +22,10 @@ no_index:
     - t
 requires:
   List::Util: 1.17
-  Moose: 0.74
+  Moose: 0.90
   MooseX::AttributeHelpers: 0.17
   MooseX::Clone: 0.05
   Scalar::Util: 1.17
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.08
+version: 0.09
