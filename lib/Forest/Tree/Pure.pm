@@ -1,8 +1,7 @@
 package Forest::Tree::Pure;
 use Moose;
-use MooseX::AttributeHelpers;
 
-our $VERSION   = '0.09';
+our $VERSION   = '0.10';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'reftype', 'refaddr';
@@ -24,14 +23,14 @@ has 'uid'  => (
 );
 
 has 'children' => (
-    metaclass => 'Collection::Array',
+    traits    => ['Array'],
     is        => 'ro',
     isa       => 'ArrayRef[Forest::Tree::Pure]',
     lazy      => 1,
     default   => sub { [] },
-    provides  => {
-        'get'   => 'get_child_at',
-        'count' => 'child_count',
+    handles   => {
+        get_child_at => 'get',
+        child_count  => 'count',
     },
 );
 
@@ -533,7 +532,7 @@ Yuval Kogman
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008-2010 Infinity Interactive, Inc.
+Copyright 2008-2014 Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 
